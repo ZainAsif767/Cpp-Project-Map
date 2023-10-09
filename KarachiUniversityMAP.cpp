@@ -116,7 +116,7 @@ public:
         return min_vertex;
     }
 
-    void dijkstra(int src,int des)
+    void dijkstra(int src, int des)
     {
         int *dist;
         bool *UnknownKnownVertices;
@@ -164,7 +164,7 @@ public:
         for (int i = 0; i < rows; i++)
         {
             int v = SmallestUnknownVertex(dist, UnknownKnownVertices); // finding the smallest unknown Vertex
-            if (v == -1) // if vertex is invalid
+            if (v == -1)                                               // if vertex is invalid
             {
                 break;
             }
@@ -176,18 +176,18 @@ public:
                     if (arr[v][j] > 0 && UnknownKnownVertices[j] != true && dist[v] + arr[v][j] < dist[j])
                     {
 
-                        dist[j] = dist[v] + arr[v][j]; // updating the dist array 
-                        path[j][j] = v; // updating the path 2d Array to track down the vertices
+                        dist[j] = dist[v] + arr[v][j]; // updating the dist array
+                        path[j][j] = v;                // updating the path 2d Array to track down the vertices
                         count++;
                     }
                 }
             }
         }
 
-        printGraph(dist, src,des);
+        printGraph(dist, src, des);
     }
 
-        void printGraph(int dist[], int src,int des)
+    void printGraph(int dist[], int src, int des)
     {
         vector<int> pathInfo;
         // cout << "Vertex \t Distance from Source" << endl;
@@ -203,64 +203,101 @@ public:
 
         // for (int i = 0; i < rows; i++)
         // {
-            location(src);
-            for (int j = 0; j < rows; j++)
+        location(src);
+        for (int j = 0; j < rows; j++)
+        {
+            if (path[des][j] > -1)
             {
-                if (path[des][j] > -1)
+                cout << "-->";
+                int u = path[des][des];
+                // if(path[u][u] > - 1) cout << path[u][u] << "-->";
+                // if(path[u][u] > - 1)
+                // {
+                //     cout << path[u][u] << "-->";
+                // }
+                // else
+                // {
+                while (u != -1)
                 {
-                    cout << "-->";
-                    int u = path[des][des];
-                    // if(path[u][u] > - 1) cout << path[u][u] << "-->"; 
-                    // if(path[u][u] > - 1) 
-                    // {
-                    //     cout << path[u][u] << "-->";
-                    // }
-                    // else
-                    // {
-                        while(u != -1)
-                        {
-                            if(path[u][u] == -1) break;
-                            // cout << path[u][u] << "-->";
-                            pathInfo.push_back(path[u][u]);
-                            u = path[u][u];
-                        }
-                    // }
-                    for(int x = pathInfo.size() - 1 ; x >= 0; x--)
-                    {
-                        // cout << pathInfo[x] << "-->";
-                        location(pathInfo[x]); cout << "-->";
-                    }
-                    // cout << path[des][j] << "-->" << des;
-                    location(path[des][j]); cout << "-->";
-                    location(des);
+                    if (path[u][u] == -1)
+                        break;
+                    // cout << path[u][u] << "-->";
+                    pathInfo.push_back(path[u][u]);
+                    u = path[u][u];
                 }
+                // }
+                for (int x = pathInfo.size() - 1; x >= 0; x--)
+                {
+                    // cout << pathInfo[x] << "-->";
+                    location(pathInfo[x]);
+                    cout << "-->";
+                }
+                // cout << path[des][j] << "-->" << des;
+                location(path[des][j]);
+                cout << "-->";
+                location(des);
             }
-            cout << endl << endl;
-            cout << "Arrival time is " << dist[des] << " minutes" << endl;
+        }
+        cout << endl
+             << endl;
+        cout << "Arrival time is " << dist[des] << " minutes" << endl;
         // }
     }
 
     void location(int num)
     {
-        switch(num)
+        switch (num)
         {
-            case 0: cout << " Kaneez Fatima Gate ";break;
-            case 1: cout << " Mass Communication ";break;
-            case 2: cout << " UBIT ";break;
-            case 3: cout << " Pharmacy Department ";break;
-            case 4: cout << " KU Circular Road ";break;
-            case 5: cout << " Chemistry Canteen ";break;
-            case 6: cout << " Biochemistry Department ";break;
-            case 7: cout << " Admin Block ";break;
-            case 8: cout << " Silver Jublee Gate ";break;
-            case 9: cout << " Gymnasium ";break;
-            case 10: cout << " Habib Bank ";break;
-            case 11: cout << " Pharmacy Canteen ";break;
-            case 12: cout << " Muskan Gate ";break;
-            case 13: cout << " KUBS ";break;
-            case 14: cout << " Public Adminstration Department ";break;
-            case 15: cout << " IBA University ";break;
-            default : break;
+        case 0:
+            cout << " Kaneez Fatima Gate ";
+            break;
+        case 1:
+            cout << " Mass Communication ";
+            break;
+        case 2:
+            cout << " UBIT ";
+            break;
+        case 3:
+            cout << " Pharmacy Department ";
+            break;
+        case 4:
+            cout << " KU Circular Road ";
+            break;
+        case 5:
+            cout << " Chemistry Canteen ";
+            break;
+        case 6:
+            cout << " Biochemistry Department ";
+            break;
+        case 7:
+            cout << " Admin Block ";
+            break;
+        case 8:
+            cout << " Silver Jublee Gate ";
+            break;
+        case 9:
+            cout << " Gymnasium ";
+            break;
+        case 10:
+            cout << " Habib Bank ";
+            break;
+        case 11:
+            cout << " Pharmacy Canteen ";
+            break;
+        case 12:
+            cout << " Muskan Gate ";
+            break;
+        case 13:
+            cout << " KUBS ";
+            break;
+        case 14:
+            cout << " Public Adminstration Department ";
+            break;
+        case 15:
+            cout << " IBA University ";
+            break;
+        default:
+            break;
         }
     }
 };
@@ -289,7 +326,7 @@ int main()
 {
     graph g;
     g.createGraph();
-    int src,des;
+    int src, des;
     cout << endl;
     printLocation();
     cout << endl;
@@ -303,5 +340,5 @@ int main()
     cout << "Select Destination : ";
     cin >> des;
     cout << endl;
-    g.dijkstra(src-1,des-1);
+    g.dijkstra(src - 1, des - 1);
 }
